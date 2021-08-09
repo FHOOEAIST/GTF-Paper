@@ -75,7 +75,7 @@ public class DependencyResolutionMain {
         mkdirs("jsons");
         var errors = new File("jsons/_errors.txt");
         var files = Objects.requireNonNull(new File("dependencies").list());
-        try (ProgressBar pb = new ProgressBarBuilder().setTaskName("Crawling data").setInitialMax(files.length).setStyle(ProgressBarStyle.ASCII).build()) {
+        try (ProgressBar pb = new ProgressBarBuilder().setTaskName("Dependency Resolution").setInitialMax(files.length).setStyle(ProgressBarStyle.ASCII).build()) {
             for (var dependencyFile : files) {
                 pb.step();
                 pb.setExtraMessage(dependencyFile);
@@ -98,8 +98,11 @@ public class DependencyResolutionMain {
 
     private static void extractDependencies(RepositorySystem repoSystem, RepositorySystemSession session, File errors, String dependencyFile, Repository repository, String dependencyStr) {
         try {
-            var dependency = new org.eclipse.aether.graph.Dependency(new DefaultArtifact(dependencyStr), "compile");
-            var aistDependency = Dependency.fromArtifact(dependency.getArtifact());
+            var split = dependencyStr.split(" ");
+            dependencyStr = split[1];
+            var scope = split[0];
+            var dependency = new org.eclipse.aether.graph.Dependency(new DefaultArtifact(dependencyStr), scope);
+            var aistDependency = Dependency.fromDependency(dependency);
             createDependencyTree(repoSystem, session, errors, dependencyFile, dependencyStr, dependency, aistDependency);
             repository.getDependencies().add(aistDependency);
         } catch (Exception e) {
@@ -135,7 +138,7 @@ public class DependencyResolutionMain {
     static void makeTree(List<DependencyNode> items, Dependency parent) {
         if (items == null) return;
         for (DependencyNode item : items) {
-            var dep = Dependency.fromArtifact(item.getArtifact());
+            var dep = Dependency.fromDependency(item.getDependency());
             makeTree(item.getChildren(), dep);
             parent.getChildren().add(dep);
         }

@@ -22,12 +22,12 @@ import java.util.ArrayList;
  * @since 1.0
  */
 @AllArgsConstructor
-public class ProjectSubGraphExtractor implements Transformer<Graph<Node, Void>, Graph<Node, Void>> {
+public class ProjectSubGraphExtractor implements Transformer<Graph<Node, String>, Graph<Node, String>> {
 
     private final String projectKey;
 
     @Override
-    public Graph<Node, Void> applyTransformation(Graph<Node, Void> graph) {
+    public Graph<Node, String> applyTransformation(Graph<Node, String> graph) {
         var optionalProjectVertex = graph.getVertices()
                 .stream()
                 .filter(v -> v.getElement() instanceof ProjectNode)
@@ -38,9 +38,9 @@ public class ProjectSubGraphExtractor implements Transformer<Graph<Node, Void>, 
             throw new IllegalStateException("Project not found!");
         }
 
-        var dependencyVertices = new ArrayList<Vertex<Node, Void>>();
+        var dependencyVertices = new ArrayList<Vertex<Node, String>>();
 
-        var stack = new ArrayDeque<Vertex<Node, Void>>();
+        var stack = new ArrayDeque<Vertex<Node, String>>();
         stack.add(Utils.cast(optionalProjectVertex.get()));
         while (!stack.isEmpty()) {
             var node = stack.pop();

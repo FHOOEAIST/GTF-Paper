@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
  * @author Andreas Pointner
  * @since 1.0
  */
-public class DuplicatedVersionVerificatorTransformer implements Transformer<Graph<Node, Void>, Set<DependencyNode>> {
+public class DuplicatedVersionVerificatorTransformer implements Transformer<Graph<Node, String>, Set<DependencyNode>> {
     @Override
-    public Set<DependencyNode> applyTransformation(Graph<Node, Void> graph) {
+    public Set<DependencyNode> applyTransformation(Graph<Node, String> graph) {
         var pr = new PropertyRestrictor(false);
         /*Note: This may resulting in more constraints errors, than expected. The reason is because of the dependency
          * resolution. As we already discovered, the dependency resolution sometimes returns weird results, where certain
@@ -33,7 +33,7 @@ public class DuplicatedVersionVerificatorTransformer implements Transformer<Grap
          * versions 2.0.0 and 2.1.0. */
         pr.addFieldConstraint(DependencyNode.class, "artifactQualifier", new DependencyNodeArtifactQualifierConstraint());
 
-        var pv = new GraphPropertyVerificator<Node, Void>();
+        var pv = new GraphPropertyVerificator<Node, String>();
         pv.setRestrictor(pr);
 
         var constraintViolationStatistic = pv.getInvalidProperties(graph).createStatistic();

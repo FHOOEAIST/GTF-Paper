@@ -15,9 +15,9 @@ import science.aist.jack.stream.FunctionUtil;
  * @author Andreas Pointner
  * @since 1.0
  */
-public class GraphVizTransformer implements GraphTransformer<Node, Void, String> {
+public class GraphVizTransformer implements GraphTransformer<Node, String, String> {
     @Override
-    public String applyTransformation(Graph<Node, Void> graph) {
+    public String applyTransformation(Graph<Node, String> graph) {
         graph.setVertexTraversalStrategy(new DepthFirstSearchTraversalStrategy<>(graph));
         StringBuilder edgeBuilder = new StringBuilder("digraph G {").append('\n')
                 .append("graph [ overlap=false ]").append('\n');
@@ -29,6 +29,7 @@ public class GraphVizTransformer implements GraphTransformer<Node, Void, String>
                             .append('"').append(element.getSource().getElement().getKey()).append('"')
                             .append("->")
                             .append('"').append(element.getTarget().getElement().getKey()).append('"')
+                            .append(" [label=\"").append(element.getElement()).append("\"];")
                             .append('\n');
                 }
         );

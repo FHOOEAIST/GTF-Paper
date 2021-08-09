@@ -40,8 +40,9 @@ public class GradleDependencyExtractor {
 
         mkdirs("dependencies");
 
-        try (var progressBar = new ProgressBarBuilder().setTaskName("Crawling data").setInitialMax(paths.size()).setStyle(ProgressBarStyle.ASCII).build()) {
+        try (var progressBar = new ProgressBarBuilder().setTaskName("Extracting dependencies").setInitialMax(paths.size()).setStyle(ProgressBarStyle.ASCII).build()) {
             for (String path : paths) {
+//                if (!path.contains("AutoDark")) continue;
                 progressBar.step();
                 String filename = path.substring(dataPath.length() + 1).replace('/', '_').replace('\\', '_');
                 progressBar.setExtraMessage(filename);
@@ -60,11 +61,11 @@ public class GradleDependencyExtractor {
                     var gradleFileContent = FileUtils.readFileToString(gradleFile);
 
                     for (String dependencyString : findBlock(gradleFileContent, "dependencies")) {
-                        var patternDependency = Pattern.compile("['\"][^'\":]*:[^'\":]*:[^'\":]*['\"]");
+                        var patternDependency = Pattern.compile("[a-zA-Z]+\\s+\\(?['\"][^'\":]*:[^'\":]*:[^'\":]*['\"]\\)?");
                         var matcherDependency = patternDependency.matcher(dependencyString);
                         while(matcherDependency.find()) {
                             String dependency = matcherDependency.group();
-                            dependencies.add(dependency.substring(1, dependency.length()-1));
+                            dependencies.add(dependency.replace("(", "").replace(")", "").replace("\"","").replace("'", "").replaceAll("\\s+", " "));
                         }
                     }
 

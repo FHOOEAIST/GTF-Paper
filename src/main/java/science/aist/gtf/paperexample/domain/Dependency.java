@@ -29,6 +29,8 @@ public class Dependency {
     private String groupId;
     @NonNull
     private String artifactId;
+    @NonNull
+    private String scope;
 
     @Setter
     @EqualsAndHashCode.Exclude
@@ -41,7 +43,18 @@ public class Dependency {
      * @return The resulting dependency.
      */
     public static Dependency fromArtifact(Artifact artifact) {
-        return new Dependency(artifact.getVersion(), artifact.getGroupId(), artifact.getArtifactId());
+        return new Dependency(artifact.getVersion(), artifact.getGroupId(), artifact.getArtifactId(), "");
+    }
+
+    /**
+     * Create the dependency from a eclipse dependency.
+     *
+     * @param dependency The dependency.
+     * @return The resulting dependency.
+     */
+    public static Dependency fromDependency(org.eclipse.aether.graph.Dependency dependency) {
+        var artifact = dependency.getArtifact();
+        return new Dependency(artifact.getVersion(), artifact.getGroupId(), artifact.getArtifactId(), dependency.getScope());
     }
 
     /**
