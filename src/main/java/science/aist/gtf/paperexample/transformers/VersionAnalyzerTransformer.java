@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
  * @author Andreas Pointner
  * @since 1.0
  */
-public class VersionAnalyzerTransformer implements GraphTransformer<Node, Void, String> {
+public class VersionAnalyzerTransformer implements GraphTransformer<Node, String, String> {
 
     @Override
-    public String applyTransformation(Graph<Node, Void> graph) {
+    public String applyTransformation(Graph<Node, String> graph) {
         Map<String, Integer> result = new HashMap<>();
         graph.setVertexTraversalStrategy(new DepthFirstSearchTraversalStrategy<>(graph));
         graph.traverseVertices(vertex -> {

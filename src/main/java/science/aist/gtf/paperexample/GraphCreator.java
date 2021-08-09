@@ -24,9 +24,9 @@ import java.util.Objects;
  * @since 1.0
  */
 public class GraphCreator {
-    public Graph<Node, Void> makeGraph() {
+    public Graph<Node, String> makeGraph() {
         var mapper = new ObjectMapper();
-        var graphBuilder = GraphBuilderImpl.<Node, Void>create(Node::getKey);
+        var graphBuilder = GraphBuilderImpl.<Node, String>create(Node::getKey);
         var files = Objects.requireNonNull(new File("jsons").list());
 
         for (String file : files) {
@@ -46,7 +46,7 @@ public class GraphCreator {
     }
 
 
-    private void addDependencies(GraphBuilder<Node, Void> builder, Node parent, Collection<Dependency> dependencyList) {
+    private void addDependencies(GraphBuilder<Node, String> builder, Node parent, Collection<Dependency> dependencyList) {
         if (dependencyList == null || dependencyList.isEmpty()) return;
         for (Dependency dependency : dependencyList) {
             var dp = new DependencyNode(
@@ -54,7 +54,7 @@ public class GraphCreator {
                     dependency.getArtifactId(),
                     dependency.getVersion()
             );
-            builder.from(parent).to(dp);
+            builder.from(parent).toData(dp).data(dependency.getScope());
             addDependencies(builder, dp, dependency.getChildren());
         }
     }
