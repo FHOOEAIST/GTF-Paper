@@ -25,6 +25,9 @@ import static science.aist.gtf.paperexample.Utils.mkdirs;
  */
 public class GradleDependencyExtractor {
 
+    public static final Pattern PATTERN_DEPENDENCY = Pattern.compile("[a-zA-Z]+\\s+\\(?['\"][^'\":]*:[^'\":]*:[^'\":]*['\"]\\)?");
+    public static final Pattern PATTERN_VERSION = Pattern.compile("\\w*\\s*=\\s*[\"'][^\"']*[\"']");
+
     public static void main(String[] args) throws IOException {
         var dataPath = "data";
 
@@ -61,8 +64,7 @@ public class GradleDependencyExtractor {
                     var gradleFileContent = FileUtils.readFileToString(gradleFile);
 
                     for (String dependencyString : findBlock(gradleFileContent, "dependencies")) {
-                        var patternDependency = Pattern.compile("[a-zA-Z]+\\s+\\(?['\"][^'\":]*:[^'\":]*:[^'\":]*['\"]\\)?");
-                        var matcherDependency = patternDependency.matcher(dependencyString);
+                        var matcherDependency = PATTERN_DEPENDENCY.matcher(dependencyString);
                         while(matcherDependency.find()) {
                             String dependency = matcherDependency.group();
                             dependencies.add(dependency.replace("(", "").replace(")", "").replace("\"","").replace("'", "").replaceAll("\\s+", " "));
@@ -70,8 +72,7 @@ public class GradleDependencyExtractor {
                     }
 
                     for (String versionString : findBlock(gradleFileContent, "ext")) {
-                        var patternDependency = Pattern.compile("\\w*\\s*=\\s*[\"'][^\"']*[\"']");
-                        var matcherDependency = patternDependency.matcher(versionString);
+                        var matcherDependency = PATTERN_VERSION.matcher(versionString);
                         while(matcherDependency.find()) {
                             versions.add(matcherDependency.group());
                         }
