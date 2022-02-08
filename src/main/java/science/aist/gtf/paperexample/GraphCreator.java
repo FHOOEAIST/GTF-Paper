@@ -6,7 +6,7 @@ import science.aist.gtf.graph.builder.GraphBuilder;
 import science.aist.gtf.graph.builder.impl.GraphBuilderImpl;
 import science.aist.gtf.paperexample.domain.Dependency;
 import science.aist.gtf.paperexample.domain.Repository;
-import science.aist.gtf.paperexample.graph.DependencyNode;
+import science.aist.gtf.paperexample.graph.FullyQualifiedVersionDependencyNode;
 import science.aist.gtf.paperexample.graph.Node;
 import science.aist.gtf.paperexample.graph.ProjectNode;
 
@@ -49,7 +49,7 @@ public class GraphCreator {
     private void addDependencies(GraphBuilder<Node, String> builder, Node parent, Collection<Dependency> dependencyList) {
         if (dependencyList == null || dependencyList.isEmpty()) return;
         for (Dependency dependency : dependencyList) {
-            var dp = new DependencyNode(
+            var dp = new FullyQualifiedVersionDependencyNode(
                     dependency.getGroupId(),
                     dependency.getArtifactId(),
                     dependency.getVersion()
