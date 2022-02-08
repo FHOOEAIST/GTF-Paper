@@ -11,13 +11,13 @@ import lombok.Getter;
  * @since 1.0
  */
 @Getter
-public class DependencyNode implements Node {
+public class FullyQualifiedVersionDependencyNode implements Node {
     private final String groupId;
     private final String artifactId;
     private final String version;
     private final String artifactQualifier;
 
-    public DependencyNode(String groupId, String artifactId, String version) {
+    public FullyQualifiedVersionDependencyNode(String groupId, String artifactId, String version) {
         this.groupId = groupId;
         this.artifactId = artifactId;
         this.version = version;

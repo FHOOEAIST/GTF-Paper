@@ -2,7 +2,7 @@ package science.aist.gtf.paperexample.verification;
 
 import science.aist.gtf.graph.Graph;
 import science.aist.gtf.paperexample.Utils;
-import science.aist.gtf.paperexample.graph.DependencyNode;
+import science.aist.gtf.paperexample.graph.FullyQualifiedVersionDependencyNode;
 import science.aist.gtf.paperexample.graph.Node;
 import science.aist.gtf.transformation.Transformer;
 import science.aist.gtf.verification.syntactic.PropertyRestrictor;
@@ -18,9 +18,9 @@ import java.util.stream.Collectors;
  * @author Andreas Pointner
  * @since 1.0
  */
-public class DuplicatedVersionVerificatorTransformer implements Transformer<Graph<Node, String>, Set<DependencyNode>> {
+public class DuplicatedVersionVerificatorTransformer implements Transformer<Graph<Node, String>, Set<FullyQualifiedVersionDependencyNode>> {
     @Override
-    public Set<DependencyNode> applyTransformation(Graph<Node, String> graph) {
+    public Set<FullyQualifiedVersionDependencyNode> applyTransformation(Graph<Node, String> graph) {
         var pr = new PropertyRestrictor(false);
         /*Note: This may resulting in more constraints errors, than expected. The reason is because of the dependency
          * resolution. As we already discovered, the dependency resolution sometimes returns weird results, where certain
@@ -31,7 +31,7 @@ public class DuplicatedVersionVerificatorTransformer implements Transformer<Grap
          * For the antenna_pod example this e.g. leads to the result that the dependency androidx.arch.core:core-common
          * is contained with three different version: 2.0.0, 2.0.1 and 2.1.0, but is only contained in the json in the
          * versions 2.0.0 and 2.1.0. */
-        pr.addFieldConstraint(DependencyNode.class, "artifactQualifier", new DependencyNodeArtifactQualifierConstraint());
+        pr.addFieldConstraint(FullyQualifiedVersionDependencyNode.class, "artifactQualifier", new DependencyNodeArtifactQualifierConstraint());
 
         var pv = new GraphPropertyVerificator<Node, String>();
         pv.setRestrictor(pr);
@@ -40,7 +40,7 @@ public class DuplicatedVersionVerificatorTransformer implements Transformer<Grap
         return constraintViolationStatistic.getConstraintViolators(DependencyNodeArtifactQualifierConstraint.DUPLICATED_DEPENDENCY_CONSTRAINT_ERROR)
                 .keySet()
                 .stream()
-                .map(Utils::<DependencyNode>cast)
+                .map(Utils::<FullyQualifiedVersionDependencyNode>cast)
                 .collect(Collectors.toSet());
     }
 }

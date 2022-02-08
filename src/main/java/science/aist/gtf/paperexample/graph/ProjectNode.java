@@ -1,6 +1,6 @@
 package science.aist.gtf.paperexample.graph;
 
-import lombok.Builder;
+import lombok.*;
 
 /**
  * <p>Node in the graph that represents a project.</p>
@@ -11,10 +11,14 @@ import lombok.Builder;
  * @since 1.0
  */
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Setter
+@Getter
 public class ProjectNode implements Node {
 
-    private final String userName;
-    private final String repoName;
+    private String userName;
+    private String repoName;
 
     @Override
     public String getKey() {
