@@ -44,18 +44,18 @@ public class CaseStudyMain {
         FileUtils.writeStringToFile(new File("versionsWithVersion.txt"), resWithoutVersion);
 
         // Graph Viz Transformation for app AntennaPod:AntennaPod
-//        var antennaPodGraphViz = extractor.andThen(graphVizTransformer).applyTransformation(graph);
-//        FileUtils.writeStringToFile(new File("antenna_pod.dot"), antennaPodGraphViz);
-//
-//        // Verification to find duplicated versions in a project
-//        var antennaPodConflictingDependencyVersions = extractor
-//                .andThen(duplicatedVersionVerificatorTransformer)
-//                .applyTransformation(graph)
-//                .stream()
-//                .map(FullyQualifiedVersionDependencyNode::getArtifactQualifier)
-//                .distinct()
-//                .collect(Collectors.joining("\n"));
-//        FileUtils.writeStringToFile(new File("antenna_pod_versions_conflicts.txt"), antennaPodConflictingDependencyVersions);
+        var antennaPodGraphViz = extractor.andThen(graphVizTransformer).applyTransformation(graph);
+        FileUtils.writeStringToFile(new File("antenna_pod.dot"), antennaPodGraphViz);
+
+        // Verification to find duplicated versions in a project
+        var antennaPodConflictingDependencyVersions = extractor
+                .andThen(duplicatedVersionVerificatorTransformer)
+                .applyTransformation(graph)
+                .stream()
+                .map(FullyQualifiedVersionDependencyNode::getArtifactQualifier)
+                .distinct()
+                .collect(Collectors.joining("\n"));
+        FileUtils.writeStringToFile(new File("antenna_pod_versions_conflicts.txt"), antennaPodConflictingDependencyVersions);
     }
 
 }

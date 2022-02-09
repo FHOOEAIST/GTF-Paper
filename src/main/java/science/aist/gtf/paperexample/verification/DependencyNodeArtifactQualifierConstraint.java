@@ -8,7 +8,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * <p>A constraint, that evaluates if there are dependencies with the same group_id + artifact_id but different version.</p>
+ * <p>A constraint, that evaluates if there are dependencies with the same group_id + artifact_id but different
+ * version.</p>
  *
  * @author Andreas Schuler
  * @author Christoph Praschl
@@ -33,9 +34,8 @@ public class DependencyNodeArtifactQualifierConstraint implements Constraint<Str
 
     @Override
     public ConstraintError apply(String dependencyNode, Field field) {
-        if (dependencies.contains(dependencyNode))
+        if (!dependencies.add(dependencyNode))
             return DUPLICATED_DEPENDENCY_CONSTRAINT_ERROR;
-        dependencies.add(dependencyNode);
         return ConstraintError.NoError;
     }
 }

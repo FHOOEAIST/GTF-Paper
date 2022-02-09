@@ -24,7 +24,7 @@ public class DuplicatedVersionVerificatorTransformer implements Transformer<Grap
         var pr = new PropertyRestrictor(false);
         /*Note: This may resulting in more constraints errors, than expected. The reason is because of the dependency
          * resolution. As we already discovered, the dependency resolution sometimes returns weird results, where certain
-         * dependency do not contains all children, that are contained in other dependency resolution runs. This is
+         * dependency do not contain all children, that are contained in other dependency resolution runs. This is
          * probably due to the way versions are declared in the pom. As we ignore this when building our graph, there may
          * be results, where dependencies show up for certain projects, that the dependency tree did not cover. This
          * leads to additional duplicated versions, compared to the raw dependency tree that is executed in the json file.
