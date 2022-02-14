@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2022 the original author or authors.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package science.aist.gtf.paperexample;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,8 +42,8 @@ public class GradleCrawler {
 
     private List<Map<String, String>> extractApps() throws IOException {
         return Utils.<List<Map<String, String>>>cast(
-                mapper.readValue(GradleCrawler.class.getResourceAsStream("/fdroid.json"), Map.class).get("apps")
-        ).stream()
+                        mapper.readValue(GradleCrawler.class.getResourceAsStream("/fdroid.json"), Map.class).get("apps")
+                ).stream()
                 .filter(app -> {
                     String sourceCode = app.get("sourceCode");
                     return sourceCode != null && sourceCode.startsWith("https://github.com");

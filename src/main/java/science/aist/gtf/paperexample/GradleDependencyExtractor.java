@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2022 the original author or authors.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package science.aist.gtf.paperexample;
 
 import me.tongfei.progressbar.ProgressBarBuilder;
@@ -50,7 +59,7 @@ public class GradleDependencyExtractor {
                 String filename = path.substring(dataPath.length() + 1).replace('/', '_').replace('\\', '_');
                 progressBar.setExtraMessage(filename);
                 List<File> gradleFiles;
-                try(var stream = Files.walk(Paths.get(path))) {
+                try (var stream = Files.walk(Paths.get(path))) {
                     gradleFiles = stream.filter(Files::isRegularFile)
                             .filter(f -> f.endsWith("build.gradle"))
                             .map(Path::toFile)
@@ -65,15 +74,15 @@ public class GradleDependencyExtractor {
 
                     for (String dependencyString : findBlock(gradleFileContent, "dependencies")) {
                         var matcherDependency = PATTERN_DEPENDENCY.matcher(dependencyString);
-                        while(matcherDependency.find()) {
+                        while (matcherDependency.find()) {
                             String dependency = matcherDependency.group();
-                            dependencies.add(dependency.replace("(", "").replace(")", "").replace("\"","").replace("'", "").replaceAll("\\s+", " "));
+                            dependencies.add(dependency.replace("(", "").replace(")", "").replace("\"", "").replace("'", "").replaceAll("\\s+", " "));
                         }
                     }
 
                     for (String versionString : findBlock(gradleFileContent, "ext")) {
                         var matcherDependency = PATTERN_VERSION.matcher(versionString);
-                        while(matcherDependency.find()) {
+                        while (matcherDependency.find()) {
                             versions.add(matcherDependency.group());
                         }
                     }
@@ -83,7 +92,7 @@ public class GradleDependencyExtractor {
                     String[] split = version.split("=");
                     var versionName = split[0].trim();
                     var versionNumber = split[1].trim();
-                    versionNumber = versionNumber.substring(1, versionNumber.length() -  1);
+                    versionNumber = versionNumber.substring(1, versionNumber.length() - 1);
                     var versionNumberFinal = versionNumber;
 
                     dependencies = dependencies.stream()
@@ -97,14 +106,14 @@ public class GradleDependencyExtractor {
     }
 
     private static List<String> findBlock(String raw, String blockname) {
-        var pattern = Pattern.compile(blockname+"\\s*\\{");
+        var pattern = Pattern.compile(blockname + "\\s*\\{");
         var matcher = pattern.matcher(raw);
         List<String> blocks = new ArrayList<>();
         while (matcher.find()) {
             var dependencyStart = raw.substring(matcher.end());
             var starting = 1;
             var currentIdx = 0;
-            while(starting != 0) {
+            while (starting != 0) {
                 var currentChar = dependencyStart.charAt(currentIdx);
                 if (currentChar == '{') starting++;
                 if (currentChar == '}') starting--;
