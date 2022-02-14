@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2022 the original author or authors.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package science.aist.gtf.paperexample.transformers;
 
 import science.aist.gtf.graph.Edge;
@@ -27,13 +36,13 @@ public class VersionAnalyzerTransformer implements GraphTransformer<Node, String
         Map<String, Integer> result = new HashMap<>();
         graph.setVertexTraversalStrategy(new DepthFirstSearchTraversalStrategy<>(graph));
         graph.traverseVertices(vertex -> {
-            if (! (vertex.getElement() instanceof ProjectNode))
-                result.put(vertex.getElement().getKey(), (int)vertex.getIncomingEdges().stream().mapToDouble(Edge::getWeight).sum());
+            if (!(vertex.getElement() instanceof ProjectNode))
+                result.put(vertex.getElement().getKey(), (int) vertex.getIncomingEdges().stream().mapToDouble(Edge::getWeight).sum());
         });
 
-        return "Dependency;Count\n"+
+        return "Dependency;Count\n" +
                 result.entrySet().stream().sorted(Comparator.<Map.Entry<String, Integer>>comparingInt(Map.Entry::getValue).reversed())
-                .map(e -> e.getKey() + ";" + e.getValue())
-                .collect(Collectors.joining("\n"));
+                        .map(e -> e.getKey() + ";" + e.getValue())
+                        .collect(Collectors.joining("\n"));
     }
 }

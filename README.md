@@ -21,7 +21,7 @@ For this execute the following steps:
 1. Download the F-Droid [index-v1.jar](https://f-droid.org/repo/index-v1.jar) and unzip the .jar file to get the `index-v1.json` indices.
 2. Save the file to the project resources as `fdroid.json` file.
 3. Start the [Tor Proxy](https://hub.docker.com/r/dperson/torproxy) Docker image. 
-4. Use the `GradleCrawlerMain.java` to retrieve the gradle build files of the Andoid apps of F-Droid (based on the `fdroid.json` file)
+4. Use the `GradleCrawlerMain.java` to retrieve the gradle build files of the Android apps of F-Droid (based on the `fdroid.json` file)
 5. Use the `GradleDependencyExtractor.java` to extract the dependencies of the individual projects
 6. Based on the extracted dependencies you can use the `DependencyResolutionMain.java` to create the JSON-based dependency tree files of the associated F-Droid projects.
 7. Use `CaseStudyMain.java` to run the case study based on the dependency tree files. This will execute the actual case study and for this will:
@@ -30,7 +30,7 @@ For this execute the following steps:
    - Transform the total graph to a list of dependencies
    - Extract a sub graph for the "Antenna Pod" project
    - Transform the sub graph to a Graph Viz representation
-   - Verify the "Antenna Pod" sub graph according to duplicated dependendencies with different version
+   - Verify the "Antenna Pod" sub graph according to duplicated dependencies with different version
 
 ## FAQ
 

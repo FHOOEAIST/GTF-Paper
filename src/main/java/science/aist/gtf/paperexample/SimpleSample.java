@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2022 the original author or authors.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package science.aist.gtf.paperexample;
 
 import science.aist.gtf.graph.Edge;
@@ -10,6 +19,8 @@ import science.aist.gtf.transformation.renderer.TransformationRender;
 /**
  * <p>Running Paper Example</p>
  *
+ * @author Andreas Schuler
+ * @author Christoph Praschl
  * @author Andreas Pointner
  */
 public class SimpleSample {
@@ -23,7 +34,6 @@ public class SimpleSample {
                 .from("John").toData("Richard").data("are_friends")
                 .from("Max").toData("Richard").data("are_best_friends")
                 .toGraph();
-
 
         // Visualize Graph
         var edgeRenderer = new TransformationRender<String, StringBuilder, Graph<String, String>, Edge<String, String>>() {
@@ -51,7 +61,8 @@ public class SimpleSample {
             var result = new StringBuilder();
             result.append("digraph G {\n");
             g.traverseEdges(
-                  x -> {},
+                    x -> {
+                    },
                     e -> result.append("  ").append(edgeRenderer.renderElement(g, e))
             );
             result.append("}\n");

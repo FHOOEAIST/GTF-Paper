@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2022 the original author or authors.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package science.aist.gtf.paperexample;
 
 import java.io.IOException;
@@ -9,8 +18,8 @@ import java.net.http.HttpResponse;
 /**
  * <p>HTTP Client that redirects the requests over a tor-proxy to bypass request limits.</p>
  * <p>
- *     This requires a docker container running, which can be started using:
- *     <pre>docker container run -it -p 8118:8118 -p 9051:9051 -e PASSWORD="secure123" dperson/torproxy</pre>
+ * This requires a docker container running, which can be started using:
+ * <pre>docker container run -it -p 8118:8118 -p 9051:9051 -e PASSWORD="secure123" dperson/torproxy</pre>
  * </p>
  *
  * @author Andreas Schuler

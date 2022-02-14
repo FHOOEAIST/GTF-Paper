@@ -1,3 +1,12 @@
+/*
+ * Copyright (c) 2022 the original author or authors.
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 package science.aist.gtf.paperexample;
 
 import org.apache.commons.io.FileUtils;
@@ -34,14 +43,15 @@ public class CaseStudyMain {
         var graphWithoutVersion = fullyQualifiedVersionDependencyNodeGraphToFullyQualifiedDependencyNodeGraphTransformer.applyTransformation(graph);
 
         // Graph Viz Transformation - for whole graph.
-//        String s = graphVizTransformer.applyTransformation(graph);
-//        FileUtils.writeStringToFile(new File("graph.dot"), s);
-//
-//        // Version Transformation
-//        var res = versionAnalyzerTransformer.applyTransformation(graph);
-//        FileUtils.writeStringToFile(new File("versions.txt"), res);
+        String s = graphVizTransformer.applyTransformation(graph);
+        FileUtils.writeStringToFile(new File("graph.dot"), s);
+
+        // Version Transformation
+        var res = versionAnalyzerTransformer.applyTransformation(graph);
+        FileUtils.writeStringToFile(new File("dependenciesVersionUnique.txt"), res);
+
         var resWithoutVersion = versionAnalyzerTransformer.applyTransformation(graphWithoutVersion);
-        FileUtils.writeStringToFile(new File("versionsWithVersion.txt"), resWithoutVersion);
+        FileUtils.writeStringToFile(new File("dependenciesWithoutVersion.txt"), resWithoutVersion);
 
         // Graph Viz Transformation for app AntennaPod:AntennaPod
         var antennaPodGraphViz = extractor.andThen(graphVizTransformer).applyTransformation(graph);
