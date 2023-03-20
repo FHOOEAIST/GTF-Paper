@@ -1,0 +1,32 @@
+authors:
+ - family-names: "Schuler"
+   given-names: "Andreas"
+   email: "andreas.schuler@fh-hagenberg.at"
+   orcid: "https://orcid.org/0000-0003-1074-3222"
+   affiliation: "Advanced Information Systems and Technology"
+ - family-names: "Pointner"
+   given-names: "Andreas"
+   email: "andreas.pointner@fh-hagenberg.at"
+   orcid: "https://orcid.org/0000-0001-8642-1161"
+   affiliation: "Advanced Information Systems and Technology"
+ - family-names: "Praschl"
+   given-names: "Christoph"
+   email: "christoph.praschl@fh-hagenberg.at"
+   orcid: "https://orcid.org/0000-0002-9711-4818"
+   affiliation: "Advanced Information Systems and Technology"
+cff-version: 1.2.0
+date-released: 2023-03-20
+doi: 10.5281/zenodo.7752904
+keywords:
+  - Graph
+  - Java
+  - Transformation
+  - Example
+license: MPL-2.0
+message: "If you use this software, please cite it as below."
+repository-artifact: "https://search.maven.org/artifact/science.aist.gtf/gtf/2.0.0/pom"
+repository-code: "https://github.com/FHOOEAIST/GTF-Paper"
+title: "Graph Transformation Framework Paper Example"
+type: software
+url: "https://github.com/FHOOEAIST/GTF-Paper"
+version: 1.0.0
