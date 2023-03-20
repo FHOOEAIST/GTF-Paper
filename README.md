@@ -32,10 +32,6 @@ For this execute the following steps:
    - Transform the sub graph to a Graph Viz representation
    - Verify the "Antenna Pod" sub graph according to duplicated dependencies with different version
 
-## FAQ
-
-If you have any questions, please checkout our <insert FAQ link here if using maven site, otherwise write a small FAQ section here>.
-
 ## Contributing
 
 **First make sure to read our [general contribution guidelines](https://fhooeaist.github.io/CONTRIBUTING.html).**
@@ -54,4 +50,4 @@ file, You can obtain one at https://mozilla.org/MPL/2.0/.
 If you are going to use this project as part of a research paper, we would ask you to reference this project by citing
 it. 
 
-<TODO zenodo doi>
+[![DOI](https://zenodo.org/badge/359467033.svg)](https://zenodo.org/badge/latestdoi/359467033)
